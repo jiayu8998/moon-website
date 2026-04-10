@@ -2,111 +2,106 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>明月自助餐計價</title>
+  <title>明月自助餐點餐系統</title>
   <style>
-    body {
-      font-family: Arial;
-      background: #f5f5f5;
-      text-align: center;
-      padding: 30px;
-    }
-    h1 {
-      color: #333;
-    }
-    .menu {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .item {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    #total {
-      font-size: 20px;
-      margin-top: 15px;
-      color: #d32f2f;
-    }
+    body { font-family: Arial; text-align: center; background:#f5f5f5; padding:30px; }
+    .menu { background:white; padding:20px; border-radius:10px; width:350px; margin:auto; }
+    .item { margin:10px 0; display:flex; justify-content:space-between; align-items:center;}
+    select, input { margin-left:5px; }
+    #total { margin-top:15px; font-size:22px; color:#d32f2f; }
+    #order { margin-top:15px; text-align:left; }
   </style>
 </head>
 <body>
 
-  <h1>🍱 明月自助餐</h1>
+<h1>🍱 明月自助餐</h1>
 
-  <div class="menu">
+<div class="menu">
 
-    <div class="item">
-      排骨便當 (100)
-      <input type="number" min="0" value="0" id="pork">
-    </div>
-
-    <div class="item">
-      控肉便當 (100)
-      <input type="number" min="0" value="0" id="braised">
-    </div>
-
-    <div class="item">
-      雞腿便當 (110)
-      <input type="number" min="0" value="0" id="chicken">
-    </div>
-
-    <div class="item">
-      紅糟肉便當 (110)
-      <input type="number" min="0" value="0" id="redmeat">
-    </div>
-
-    <div class="item">
-      豬腳蹄便當 (100)
-      <input type="number" min="0" value="0" id="trotter">
-    </div>
-
-    <div class="item">
-      豬腳中段便當 (110)
-      <input type="number" min="0" value="0" id="middle">
-    </div>
-
-    <div class="item">
-      菜飯便當 (65)
-      <input type="number" min="0" value="0" id="veg">
-    </div>
-
-    <button onclick="calculate()">計算總價</button>
-
-    <div id="total">總價：0 元</div>
-
+  <div class="item">排骨便當(100)
+    <select onchange="sync(this,'pork')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="pork" value="0" min="0" oninput="syncInput(this)">
   </div>
 
-  <script>
-    function calculate() {
-      let total =
-        document.getElementById("pork").value * 100 +
-        document.getElementById("braised").value * 100 +
-        document.getElementById("chicken").value * 110 +
-        document.getElementById("redmeat").value * 110 +
-        document.getElementById("trotter").value * 100 +
-        document.getElementById("middle").value * 110 +
-        document.getElementById("veg").value * 65;
+  <div class="item">控肉便當(100)
+    <select onchange="sync(this,'braised')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="braised" value="0" min="0" oninput="syncInput(this)">
+  </div>
 
-      document.getElementById("total").innerText = "總價：" + total + " 元";
+  <div class="item">雞腿便當(110)
+    <select onchange="sync(this,'chicken')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="chicken" value="0" min="0" oninput="syncInput(this)">
+  </div>
+
+  <div class="item">紅糟肉便當(110)
+    <select onchange="sync(this,'redmeat')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="redmeat" value="0" min="0" oninput="syncInput(this)">
+  </div>
+
+  <div class="item">豬腳蹄便當(100)
+    <select onchange="sync(this,'trotter')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="trotter" value="0" min="0" oninput="syncInput(this)">
+  </div>
+
+  <div class="item">豬腳中段便當(110)
+    <select onchange="sync(this,'middle')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="middle" value="0" min="0" oninput="syncInput(this)">
+  </div>
+
+  <div class="item">菜飯便當(65)
+    <select onchange="sync(this,'veg')"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    <input type="number" id="veg" value="0" min="0" oninput="syncInput(this)">
+  </div>
+
+  <div id="total">總價：0 元</div>
+  <div id="order"><b>訂單：</b><br>（尚未點餐）</div>
+
+</div>
+
+<script>
+const menu = {
+  pork: {name:"排骨便當", price:100},
+  braised: {name:"控肉便當", price:100},
+  chicken: {name:"雞腿便當", price:110},
+  redmeat: {name:"紅糟肉便當", price:110},
+  trotter: {name:"豬腳蹄便當", price:100},
+  middle: {name:"豬腳中段便當", price:110},
+  veg: {name:"菜飯便當", price:65}
+};
+
+function sync(select, id){
+  document.getElementById(id).value = select.value;
+  update();
+}
+
+function syncInput(input){
+  let select = input.previousElementSibling;
+  select.value = input.value;
+  update();
+}
+
+function update(){
+  let total = 0;
+  let orderText = "";
+
+  for(let key in menu){
+    let qty = parseInt(document.getElementById(key).value) || 0;
+    if(qty > 0){
+      let itemTotal = qty * menu[key].price;
+      total += itemTotal;
+      orderText += `${menu[key].name} x ${qty} = ${itemTotal} 元<br>`;
     }
-  </script>
+  }
+
+  document.getElementById("total").innerText = "總價：" + total + " 元";
+
+  document.getElementById("order").innerHTML =
+    "<b>訂單：</b><br>" + (orderText || "（尚未點餐）");
+}
+
+// 初始化
+update();
+</script>
 
 </body>
 </html>
